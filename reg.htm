@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
-      <script type="module">
+    <title>Document</title>
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
         import { getDatabase, ref, set, push, onValue, remove, get, child } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
 
         const firebaseConfig = {
     apiKey: "AIzaSyCUsGclxuUiqYipFXSVg2ILsJvfwOgj5gA",
     authDomain: "reservation-89594.firebaseapp.com",
+    databaseURL: "https://reservation-89594-default-rtdb.firebaseio.com",
     projectId: "reservation-89594",
     storageBucket: "reservation-89594.appspot.com",
     messagingSenderId: "804421458753",
@@ -19,48 +19,59 @@
   };
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        
+
         submit.addEventListener('click', ()=>{
             if(document.getElementById('name').value && document.getElementById('phone').value && document.getElementById('agree').checked==true){
                 get(child(ref(database), '/'+document.getElementById('phone').value+'/')).then((snapshot)=>{
                     if(snapshot.exists() == true){
                         alert('이미 등록한 전화번호입니다.');
                     }
+                    else{
+                        let today = new Date();
+                        
+                        set(ref(database, '/'+document.getElementById('phone').value), {
+                            name: document.getElementById('name').value,
+                            regTime: today.toLocaleString(),
+                            enterTime: '',
+                        });
+                        document.getElementById('name').value='';
+                        document.getElementById('phone').value='';
+                    }
                 });
+            }
+            else{
+                alert('빠진 내용이 있습니다.');
+            }
+        });
 
-                set(ref(database, '/'+document.getElementById('phone').value), {
-                name : document.getElementById('name').value,
-                phone : document.getElementById('phone').value,
-            });
-                document.getElementById('name').value='';
-                document.getElementById('phone').value='';
-        }
         
-    else{
-            alert('빠진 내용이 있습니다.');
-        }
-            });
-
-    //document.getElementById('submit').value='';
-            //document.getElementById('submit').focus();
     </script>
-
 </head>
 <body>
-    <img src="https://ggc.ggcf.kr/uploadimg/resize/a106eed21588863060049.jpeg">
-
-    <h2>제천 음악회 신청 등록</h2>
-    <div>참가자 신청</div>
-    <input type="text" id="name" placeholder="이름/Name">
-    <input type="text" id="phone" placeholder="전화번호/Phone Number">
-    <h4>개인정보 수집 동의</h4>
-    <div>개인정보 수집 목적: 제천 음악회 입장관리</div>
-    <div>개인정보 수집 내용: 이름, 전화번호</div>
-    <input type="checkbox" id="agree" onClick="console.log(document.getElementById('agree').checked);">
+    <img src="logo.jpg" style="width: 100%; max-height: 450px;">
+    <h4>제천음악제 참가등록</h4>
+    <div>제천음악제에 참가하시려면 아래 사전등록을 해주세요.</div>
+    <h5>참가자 정보</h5>
+    <input type="text" id="name" placeholder="이름">
+    <input type="text" id="phone" placeholder="전화번호">
+    <h5>개인정보 수집.이용동의</h5>
+    <div>
+        <div><b>제천음악제 입장을 위한 개인정보 수집/이용동의에 대한 안내입니다.</b></div>
+        <div>
+            1. 수집목적: 제천음악제 입장관리
+        </div>
+        <div>
+            2. 수집내용: 이름, 전화번호
+        </div>
+        <div>
+            3. 수집이용기간: 음악제 종료 후 5일 간
+        </div>
+        <div>
+            4. 본 수집/이용동의를 거부할 수 있습니다. 단, 거부시에는 온라인을 통한 사전등록이 제한됩니다.
+        </div>
+    </div>
+    <input type="checkbox" id="agree" onClick="console.log();">
     <label for="agree">개인정보 수집/이용에 동의합니다.</label>
-    <button type="submit" id="submit">입장 등록</button>
-    
-
-    
+    <button type="submit" id="submit">입장 사전등록</button>
 </body>
 </html>
