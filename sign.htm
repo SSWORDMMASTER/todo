@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,18 +9,18 @@
         import { getDatabase, ref, set, push, onValue, remove, get, child } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
 
         const firebaseConfig = {
-    apiKey: "AIzaSyCUsGclxuUiqYipFXSVg2ILsJvfwOgj5gA",
-    authDomain: "reservation-89594.firebaseapp.com",
-    projectId: "reservation-89594",
-    storageBucket: "reservation-89594.appspot.com",
-    messagingSenderId: "804421458753",
-    appId: "1:804421458753:web:7250536cdc6de1d66b5fc0"
+    apiKey: "AIzaSyBmUK8APKAI0wpDFzZQ8-__cd1JW9lycZQ",
+    authDomain: "sign-98b99.firebaseapp.com",
+    projectId: "sign-98b99",
+    storageBucket: "sign-98b99.appspot.com",
+    messagingSenderId: "329383874706",
+    appId: "1:329383874706:web:8586cf86db0b9cb641564b"
   };
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         
         submit.addEventListener('click', ()=>{
-            if(document.getElementById('name').value && document.getElementById('phone').value && document.getElementById('agree').checked==true){
+            if(document.getElementById('name').value && document.getElementById('Cnumber').value && document.getElementById('name').value && document.getElementById('phone').value && document.getElementById('agree').checked==true){
                 get(child(ref(database), '/'+document.getElementById('phone').value+'/')).then((snapshot)=>{
                     if(snapshot.exists() == true){
                         alert('이미 등록한 전화번호입니다.');
@@ -29,11 +28,16 @@
                 });
 
                 set(ref(database, '/'+document.getElementById('phone').value), {
+                class : document.getElementById('class').value,
+                Cnumber : document.getElementById('Cnumber').value,
                 name : document.getElementById('name').value,
                 phone : document.getElementById('phone').value,
             });
+                document.getElementById('class').value='';
+                document.getElementById('Cnumber').value='';
                 document.getElementById('name').value='';
                 document.getElementById('phone').value='';
+                document.getElementById('agree').value='';
         }
         
     else{
@@ -47,7 +51,7 @@
 
 </head>
 <body>
-    <img src="https://iam-organization-r.akamaized.net/logo-image/15461/tRITQBXgovVbQo0m.png">
+    <img src="대제.png">
 
     <h2>대제중학교 청야제 가요제 참가자 신청</h2>
     <div>가요제 참가자 신청</div>
@@ -62,5 +66,7 @@
     <input type="checkbox" id="agree" onClick="console.log(document.getElementById('agree').checked);">
     <label for="agree">개인정보 수집/이용에 동의합니다.</label>
     <button type="submit" id="submit">입장 등록</button>
+    <div>청야제 가요제 (9월 29일)</div>
+    <div>자세한 정보는 여기서 -> <a href="https://school.cbe.go.kr/daeje-m/" target="_blank">대제중학교 홈페이지</a></div>
 </body>
 </html>
