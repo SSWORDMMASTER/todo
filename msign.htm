@@ -11,6 +11,7 @@
         const firebaseConfig = {
     apiKey: "AIzaSyBmUK8APKAI0wpDFzZQ8-__cd1JW9lycZQ",
     authDomain: "sign-98b99.firebaseapp.com",
+    databaseURL: "https://sign-98b99-default-rtdb.firebaseio.com",
     projectId: "sign-98b99",
     storageBucket: "sign-98b99.appspot.com",
     messagingSenderId: "329383874706",
@@ -49,10 +50,10 @@
 
                 let enterTimeText = "";
                 if(enterTime){
-                    enterTimeText = "입장 완료("+enterTime+")";
+                    enterTimeText = "등록 완료("+enterTime+")";
                 }
                 else{
-                    enterTimeText = "입장 전"
+                    enterTimeText = "등록 전"
                 }
 
                 const div3 = document.createElement('div');
@@ -67,8 +68,8 @@
     </script>
 </head>
 <body>
-    <h4>제천음악제 참가 사전등록 현황</h4>
-    <div>제천음악제 입장을 위한 사전등록 현황입니다.</div>
+    <h4>대제중학교 청야제 가요제 신청 사전등록 현황</h4>
+    <div>청야제 가요제신청을 위한 사전등록 현황입니다.</div>
     <div id="div_list"></div>
 </body>
 </html>

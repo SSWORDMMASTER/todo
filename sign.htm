@@ -11,6 +11,7 @@
         const firebaseConfig = {
     apiKey: "AIzaSyBmUK8APKAI0wpDFzZQ8-__cd1JW9lycZQ",
     authDomain: "sign-98b99.firebaseapp.com",
+    databaseURL: "https://sign-98b99-default-rtdb.firebaseio.com",
     projectId: "sign-98b99",
     storageBucket: "sign-98b99.appspot.com",
     messagingSenderId: "329383874706",
@@ -25,19 +26,22 @@
                     if(snapshot.exists() == true){
                         alert('이미 등록한 전화번호입니다.');
                     }
-                });
+                    else{
+                        let today = new Date();
+                    
 
                 set(ref(database, '/'+document.getElementById('phone').value), {
-                class : document.getElementById('class').value,
-                Cnumber : document.getElementById('Cnumber').value,
-                name : document.getElementById('name').value,
-                phone : document.getElementById('phone').value,
+                            class: document.getElementById('class').value,
+                            name: document.getElementById('name').value,
+                            regTime: today.toLocaleString(),
+                            enterTime: '',
+                        });
+                        document.getElementById('class').value='';
+                        document.getElementById('Cnumber').value='';
+                        document.getElementById('name').value='';
+                        document.getElementById('phone').value='';
+                    }
             });
-                document.getElementById('class').value='';
-                document.getElementById('Cnumber').value='';
-                document.getElementById('name').value='';
-                document.getElementById('phone').value='';
-                document.getElementById('agree').value='';
         }
         
     else{
@@ -66,7 +70,6 @@
     <input type="checkbox" id="agree" onClick="console.log(document.getElementById('agree').checked);">
     <label for="agree">개인정보 수집/이용에 동의합니다.</label>
     <button type="submit" id="submit">입장 등록</button>
-    <div>청야제 가요제 (9월 29일)</div>
     <div>자세한 정보는 여기서 -> <a href="https://school.cbe.go.kr/daeje-m/" target="_blank">대제중학교 홈페이지</a></div>
 </body>
 </html>
